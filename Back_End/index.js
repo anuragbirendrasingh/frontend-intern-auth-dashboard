@@ -3,14 +3,12 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const app = express();
 
-// mongoose
-//   .connect(process.env.DB_URL)
-//   .then(() => {
-//     console.log("DB IS Connected");
-//   })
-//   .catch((err) => {
-//     console.log("DataBAse Error", err);
-//   });
+const apiRouter = require("./routes/apiRouter");
+
+app.use(express.json()) ;
+
+app.use('/api',apiRouter);
+
 
 async function dbConnect() {
   try {
@@ -20,7 +18,6 @@ async function dbConnect() {
     console.log("DB is throwing error ", error);
   }
 }
-
 dbConnect();
 
 app.listen(process.env.PORT, () => {
