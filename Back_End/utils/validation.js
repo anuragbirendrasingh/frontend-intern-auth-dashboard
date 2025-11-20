@@ -17,4 +17,16 @@ const validateSignUpData = (req) => {
   }
 };
 
-module.exports = { validateSignUpData };
+const validateLoginData = (req) => {
+  const { emailId, password } = req.body;
+
+  if (!emailId || !validator.isEmail(emailId)) {
+    throw new Error("Please enter a valid email");
+  }
+
+  if (!password) {
+    throw new Error("Password is required");
+  }
+};
+
+module.exports = { validateSignUpData ,validateLoginData };

@@ -1,7 +1,10 @@
 const User = require("../models/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { validateSignUpData } = require("../utils/validation");
+const {
+  validateSignUpData,
+  validateLoginData,
+} = require("../utils/validation");
 
 const signup = async (req, res) => {
   try {
@@ -43,26 +46,25 @@ const signup = async (req, res) => {
 
 const signin = async (req, res) => {
   try {
-    const { emailId, password } = req.body;
+    validateLoginData(req);
 
-    if (!emailId || !password) {
-      return res
-        .status(400)
-        .json({ message: "Please enter emailId and Password" });
-    }
+    const { emailId, password } = req.body;
 
     const user = await User.findOne({ emailId }).select("+password");
     if (!user) {
       return res
         .status(400)
-        .json({ message: "please enter a valid emailId & password" });
+        .json({ message: "Invalid email or password" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "please enter a valid password" });
+      return res
+        .status(401)
+        .json({ message: "Invalid email or password" });
     }
 
+    // create token
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
@@ -79,9 +81,11 @@ const signin = async (req, res) => {
         emailId: user.emailId,
       },
     });
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-module.exports = { signup, signin };
+
+module.exports = {signup,signin}
