@@ -13,7 +13,8 @@ const userSchema = mongoose.Schema({
     lastName : {
         type : String,
         maxLength: 15 ,
-        trim : true
+        trim : true,
+        default : ""
     } ,
     age : {
         type : Number,

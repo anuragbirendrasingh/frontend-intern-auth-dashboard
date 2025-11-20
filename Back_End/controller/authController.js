@@ -29,7 +29,7 @@ const signup = async (req, res) => {
     return res.status(201).json({
       message: "User created succssfully",
       firstName: user.firstName,
-      lastName: user.lastName,
+      lastName: user.lastName || "",
       age: user.age,
       gender: user.gender,
       photoUrl: user.photoUrl,
@@ -38,6 +38,46 @@ const signup = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
+
+
 };
 
-module.exports = { signup };
+const signin = async (req,res) =>{
+  try{
+      const {emailId,password} = req.body ;
+
+      if(!emailId ||!password){
+        return res.status(400).json({message :"Please enter emailId and Password"})
+      }
+
+    const user = await  User.findOne({emailId}).select("+password") ;
+    if(!user){
+      return res.status(400).json({message : "please enter a valid emailId & password"})
+    }
+
+    const isMatch = await bcrypt.compare(password,user.password);
+    if(!isMatch){
+      return res.status(400).json({message : "please enter a valid password"})
+    }
+
+        return res.status(200).json({
+      message: "Login successful",
+      user: {
+        firstName: user.firstName,
+        lastName: user.lastName || "",
+        age: user.age,
+        gender: user.gender,
+        photoUrl: user.photoUrl,
+        emailId: user.emailId,
+      },
+
+
+    });
+
+  }
+  catch(err){
+    res.status(500).json({message:err.message})
+  }
+}
+
+module.exports = { signup ,signin};
