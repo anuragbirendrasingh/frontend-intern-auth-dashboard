@@ -3,6 +3,7 @@ import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 import DashBoard from "./Pages/DashBoard";
 import ProtectedRoute from "./Components/ProtectedRoute";
+import WelcomePage from "./Pages/WelcomePage";
 
 export default function App() {
   return (
@@ -11,7 +12,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
 
-        <Route path="/" element={<h1>Welcome Page</h1>} />
+        {/* <Route path="/" element={<h1>Welcome Page</h1>} /> */}
+        <Route path="/" element={<WelcomePage />} />
         
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />

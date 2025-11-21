@@ -12,7 +12,7 @@ export default function Navbar() {
         <img
           src={user?.photoUrl}
           alt="profile"
-          className="w-10 h-10 rounded-full border"
+          className="w-10 h-10 rounded-full border object-cover bg-white overflow-hidden"
         />
         <span className="font-medium">{user?.firstName}</span>
 
