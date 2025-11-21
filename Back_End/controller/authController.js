@@ -30,8 +30,13 @@ const signup = async (req, res) => {
       password: hashPassword,
     });
 
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
     return res.status(201).json({
       message: "User created succssfully",
+      token,
       firstName: user.firstName,
       lastName: user.lastName || "",
       age: user.age,
@@ -52,16 +57,12 @@ const signin = async (req, res) => {
 
     const user = await User.findOne({ emailId }).select("+password");
     if (!user) {
-      return res
-        .status(400)
-        .json({ message: "Invalid email or password" });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res
-        .status(401)
-        .json({ message: "Invalid email or password" });
+      return res.status(401).json({ message: "Invalid email or password" });
     }
 
     // create token
@@ -81,11 +82,9 @@ const signin = async (req, res) => {
         emailId: user.emailId,
       },
     });
-
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-
-module.exports = {signup,signin}
+module.exports = { signup, signin };

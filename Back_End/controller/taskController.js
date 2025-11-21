@@ -10,7 +10,7 @@ const createTask = async (req, res) => {
       title,
       description,
       status,
-      createdBy: req.user._Id, // from protect middleware
+      createdBy: req.user._id, // from protect middleware
     });
 
     res.status(201).json({ message: "Task Created SuccessFully", task });
