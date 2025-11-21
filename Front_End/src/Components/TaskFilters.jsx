@@ -6,9 +6,7 @@ export default function TaskFilters({ filter, setFilter }) {
           key={f}
           onClick={() => setFilter(f)}
           className={`px-4 py-2 rounded-lg border ${
-            filter === f
-              ? "bg-blue-600 text-white"
-              : "bg-white text-gray-700"
+            filter === f ? "bg-blue-600 text-white" : "bg-white text-gray-700"
           }`}
         >
           {f}

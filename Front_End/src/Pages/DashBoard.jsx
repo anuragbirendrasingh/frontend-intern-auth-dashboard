@@ -39,7 +39,6 @@ export default function DashBoard() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      
       {/* NAVBAR FROM COMPONENTS */}
       <Navbar />
 
@@ -56,5 +55,3 @@ export default function DashBoard() {
     </div>
   );
 }
-
-

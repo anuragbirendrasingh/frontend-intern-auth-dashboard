@@ -9,11 +9,11 @@ export default function SignUp() {
 
   const [formData, setFormData] = useState({
     firstName: "",
-    lastName:"",
+    lastName: "",
     emailId: "",
     password: "",
     age: "",
-    gender:"",
+    gender: "",
   });
 
   const [error, setError] = useState("");
@@ -32,27 +32,25 @@ export default function SignUp() {
         formData
       );
 
-      login(res.data.token, res.data.user); 
+      login(res.data.token, res.data.user);
       navigate("/dashboard");
-
     } catch (err) {
       setError(err.response?.data?.message || "Signup failed");
     }
   };
 
-
   return (
     <div className="h-screen flex justify-center items-center bg-gray-100">
       <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-6">
-        
-        <h2 className="text-2xl font-bold mb-4 text-center">Create an Account</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">
+          Create an Account
+        </h2>
 
         {error && (
           <p className="text-red-500 text-sm text-center mb-2">{error}</p>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-
           <input
             type="text"
             name="firstName"
@@ -63,13 +61,13 @@ export default function SignUp() {
           />
 
           <input
-  type="text"
-  name="lastName"
-  placeholder="Last Name"
-  value={formData.lastName}
-  onChange={handleChange}
-  className="w-full p-3 rounded-lg border outline-none"
-/>
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            value={formData.lastName}
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg border outline-none"
+          />
 
           <input
             type="email"
@@ -89,7 +87,6 @@ export default function SignUp() {
             className="w-full p-3 rounded-lg border outline-none"
           />
 
-          
           <input
             type="text"
             name="gender"
@@ -129,4 +126,3 @@ export default function SignUp() {
     </div>
   );
 }
-

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); 
+  const { login } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     emailId: "",
@@ -28,7 +28,6 @@ export default function Login() {
     try {
       const res = await axiosInstance.post("/auth/signin", formData);
 
-  
       login(res.data.token, res.data.user);
 
       navigate("/dashboard");
